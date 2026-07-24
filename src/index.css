@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  
+  --color-brand-green-dark: #0A2319;
+  --color-brand-green: #1E3A2F;
+  --color-brand-green-light: #22c55e;
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-light: var(--brand-gold-light);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-charcoal: var(--brand-charcoal);
+}
+
+:root {
+  /* Light mode (Default) */
+  --brand-cream: #FCFAF7; /* Warm light cream safari background */
+  --brand-charcoal: #FFFFFF; /* Pure white card background */
+  --brand-gold: #B48A14; /* Readability-focused gold for light bg */
+  --brand-gold-light: #CBA425;
+  
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(18, 26, 22, 0.08);
+  --text-body-color: #25332B;
+}
+
+.dark {
+  /* Dark mode */
+  --brand-cream: #080C0A; /* original dark background */
+  --brand-charcoal: #121A16; /* original dark card background */
+  --brand-gold: #D4AF37; /* original brilliant gold */
+  --brand-gold-light: #E5C158;
+  
+  --glass-bg: rgba(18, 26, 22, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --text-body-color: #E0E5E2;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: var(--brand-cream);
+    color: var(--text-body-color);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Light mode overrides for text color utility classes when .dark is NOT present */
+:root:not(.dark) .text-white {
+  color: #121A16 !important;
+}
+:root:not(.dark) .text-gray-100 {
+  color: #1A241F !important;
+}
+:root:not(.dark) .text-gray-200 {
+  color: #25312B !important;
+}
+:root:not(.dark) .text-gray-300 {
+  color: #384940 !important;
+}
+:root:not(.dark) .text-gray-400 {
+  color: #54685E !important;
+}
+:root:not(.dark) .text-gray-500 {
+  color: #73877D !important;
+}
+
+/* Exclusions: Keep text white/light inside explicitly dark green components even in Light mode */
+.bg-brand-green .text-white,
+.bg-brand-green-dark .text-white,
+.bg-\[\#1E3A2F\] .text-white,
+.bg-\[\#0A2319\] .text-white,
+.bg-brand-green .text-gray-300,
+.bg-brand-green-dark .text-gray-300,
+.bg-\[\#1E3A2F\] .text-gray-300,
+.bg-\[\#0A2319\] .text-gray-300 {
+  color: #ffffff !important;
+}
+
+.bg-brand-green .text-gray-400,
+.bg-brand-green-dark .text-gray-400,
+.bg-\[\#1E3A2F\] .text-gray-400,
+.bg-\[\#0A2319\] .text-gray-400 {
+  color: #d1d5db !important;
+}
+
+/* Exclusions for Hero Section (#home) to maintain immersive dark safari theme in both modes */
+#home .text-white {
+  color: #ffffff !important;
+}
+#home .text-gray-300 {
+  color: #d1d5db !important;
+}
+#home .text-gray-400 {
+  color: #9ca3af !important;
+}
+#home .border-white\/10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Custom styles for smooth luxury borders and parallax vibe */
+.safari-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+.safari-glass-dark {
+  background: rgba(10, 15, 13, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* Soft light mode border substitutions for standard white/X opacity borders */
+:root:not(.dark) .border-white\/5 {
+  border-color: rgba(18, 26, 22, 0.06) !important;
+}
+:root:not(.dark) .border-white\/10 {
+  border-color: rgba(18, 26, 22, 0.12) !important;
+}
+:root:not(.dark) .border-white\/20 {
+  border-color: rgba(18, 26, 22, 0.2) !important;
+}
+:root:not(.dark) .border-brand-gold\/10 {
+  border-color: rgba(180, 138, 20, 0.12) !important;
+}
+:root:not(.dark) .border-brand-gold\/20 {
+  border-color: rgba(180, 138, 20, 0.25) !important;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

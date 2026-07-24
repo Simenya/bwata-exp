@@ -1,0 +1,6 @@
+{
+  "name": "Pearl Gorilla Safaris",
+  "description": "East African safari tours specializing in mountain gorilla trekking, chimpanzee encounters, and authentic wildlife experiences in Uganda, Rwanda, and Kenya.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
