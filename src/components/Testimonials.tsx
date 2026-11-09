@@ -28,7 +28,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-brand-charcoal p-8 rounded-3xl border border-white/5 shadow-md relative flex flex-col justify-between"
+              className="bg-brand-charcoal p-8 rounded-3xl gold-card relative flex flex-col justify-between"
             >
               {/* Quote Mark Decoration */}
               <div className="absolute top-6 right-6 text-brand-gold/5">

@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Check, X, Compass, MapPin, Moon, Utensils, Send, MessageSquare, Clock } from "lucide-react";
 import { packages } from "../content";
 import { useBooking } from "./BookingModal";
 
-export default function InteractivePlanner() {
+export default function InteractivePlanner({ initialId }: { initialId?: string }) {
   const { openBooking } = useBooking();
-  const [selectedId, setSelectedId] = useState("6-day-circuit");
+  const [selectedId, setSelectedId] = useState(packages.some((p) => p.id === initialId) ? initialId! : "6-day-circuit");
   const [dayIdx, setDayIdx] = useState(0);
+
+  // A trip chosen from the menu or a card: show its day-by-day breakdown
+  useEffect(() => {
+    if (!initialId || !packages.some((p) => p.id === initialId)) return;
+    setSelectedId(initialId);
+    setDayIdx(0);
+    const t = setTimeout(() => document.getElementById("itinerary-planner")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+    return () => clearTimeout(t);
+  }, [initialId]);
 
   const pkg = packages.find((p) => p.id === selectedId) || packages[0];
   const day = pkg.days[dayIdx] || pkg.days[0];
 
   return (
-    <section id="itinerary-planner" className="py-16 lg:py-24 bg-brand-cream text-white relative overflow-hidden">
+    <section id="itinerary-planner" className="py-16 lg:py-24 bg-brand-cream text-white relative overflow-hidden scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">Packages & Itineraries</h2>

@@ -146,3 +146,14 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Gold glow outline used on cards (works in both light and dark themes) */
+.gold-card {
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.07), 0 8px 28px rgba(212, 175, 55, 0.14);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+.gold-card:hover {
+  border-color: rgba(212, 175, 55, 0.9) !important;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.14), 0 12px 40px rgba(212, 175, 55, 0.28);
+}

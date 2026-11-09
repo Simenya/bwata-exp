@@ -5,7 +5,7 @@ import { useBooking } from "./BookingModal";
 import { Page } from "../types";
 
 interface Props {
-  onNavigate: (p: Page) => void;
+  onNavigate: (p: Page, id?: string) => void;
   /** show only featured ones */
   featuredOnly?: boolean;
 }
@@ -31,7 +31,7 @@ export default function FeaturedPackages({ onNavigate, featuredOnly = true }: Pr
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="flex flex-col rounded-3xl overflow-hidden bg-brand-charcoal border border-white/10 shadow-md hover:shadow-xl transition-shadow"
+              className="flex flex-col rounded-3xl overflow-hidden bg-brand-charcoal gold-card transition-all"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-brand-green">
                 <img src={p.image} alt={p.name} loading="lazy" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
@@ -43,14 +43,14 @@ export default function FeaturedPackages({ onNavigate, featuredOnly = true }: Pr
                 <div className="flex items-center gap-1.5 text-xs text-gray-400">
                   <MapPin className="w-3.5 h-3.5 text-brand-gold" /> {p.countries.join(" + ")}
                 </div>
-                <h3 className="text-xl font-serif font-bold text-white">{p.name}</h3>
+                <h3 className="text-xl font-serif font-bold text-white"><button onClick={() => onNavigate("packages", p.id)} className="text-left hover:text-brand-gold transition-colors cursor-pointer">{p.name}</button></h3>
                 <p className="text-sm text-gray-400 font-light leading-relaxed">{p.overview}</p>
                 <div className="flex gap-3 mt-auto pt-4">
                   <button
-                    onClick={() => onNavigate("packages")}
+                    onClick={() => onNavigate("packages", p.id)}
                     className="flex-1 rounded-xl border border-white/15 py-3 text-[11px] font-bold uppercase tracking-wider text-white hover:bg-white/10 transition-colors cursor-pointer"
                   >
-                    Itinerary
+                    View Itinerary
                   </button>
                   <button
                     onClick={() => openBooking(p.name)}

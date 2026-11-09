@@ -39,9 +39,9 @@ const TITLES: Record<Page, string> = {
   birding: `Top 100 Birds of Uganda Checklist | ${BRAND.short}`,
 };
 
-const pageFromHash = (): Page => {
-  const raw = window.location.hash.replace(/^#\/?/, "");
-  return (PAGES as string[]).includes(raw) ? (raw as Page) : "home";
+const routeFromHash = (): { page: Page; param?: string } => {
+  const [raw, param] = window.location.hash.replace(/^#\/?/, "").split("/");
+  return { page: (PAGES as string[]).includes(raw) ? (raw as Page) : "home", param: param || undefined };
 };
 
 export default function App() {
@@ -52,7 +52,8 @@ export default function App() {
       return "light";
     }
   });
-  const [page, setPage] = useState<Page>(pageFromHash);
+  const [route, setRoute] = useState(routeFromHash);
+  const { page, param } = route;
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -64,7 +65,7 @@ export default function App() {
   }, [theme]);
 
   useEffect(() => {
-    const onHash = () => setPage(pageFromHash());
+    const onHash = () => setRoute(routeFromHash());
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
@@ -74,9 +75,9 @@ export default function App() {
     window.scrollTo({ top: 0 });
   }, [page]);
 
-  const navigate = useCallback((p: Page) => {
-    window.location.hash = p === "home" ? "" : `/${p}`;
-    setPage(p);
+  const navigate = useCallback((p: Page, sub?: string) => {
+    window.location.hash = p === "home" ? "" : `/${p}${sub ? `/${sub}` : ""}`;
+    setRoute({ page: p, param: sub });
   }, []);
 
   const goHome = useCallback(() => navigate("home"), [navigate]);
@@ -133,7 +134,7 @@ export default function App() {
               subtitle="The Masai Mara, Rwanda's volcanoes, Uganda's forests and Tanzania's Serengeti."
               image={images.savannahSunset}
             />
-            <DestinationsList heading="All Destinations" />
+            <DestinationsList heading="All Destinations" initialCountry={param} />
             <InterestGrid />
           </>
         )}
@@ -146,7 +147,7 @@ export default function App() {
               subtitle="From 3-day escapes to 10-day multi-country journeys across East Africa."
               image={images.savannahSunset}
             />
-            <InteractivePlanner />
+            <InteractivePlanner initialId={param} />
             <FeaturedPackages onNavigate={navigate} featuredOnly={false} />
           </>
         )}

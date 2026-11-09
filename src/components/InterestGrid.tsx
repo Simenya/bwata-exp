@@ -20,7 +20,7 @@ export default function InterestGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-              className="group relative aspect-[4/3] rounded-3xl overflow-hidden text-left cursor-pointer border border-white/10"
+              className="group relative aspect-[4/3] rounded-3xl overflow-hidden text-left cursor-pointer gold-card"
             >
               <img src={it.image} alt="" loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />

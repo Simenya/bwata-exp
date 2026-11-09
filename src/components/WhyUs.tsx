@@ -44,7 +44,7 @@ export default function WhyUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex flex-col p-7 bg-brand-charcoal border border-white/10 rounded-3xl hover:-translate-y-1 transition-all duration-300"
+                className="flex flex-col p-7 bg-brand-charcoal gold-card rounded-3xl hover:-translate-y-1"
               >
                 <div className="p-4 rounded-2xl w-14 h-14 flex items-center justify-center border mb-5 bg-brand-gold/15 text-brand-gold border-brand-gold/20">
                   <Icon className="w-6 h-6" />

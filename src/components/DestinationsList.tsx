@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { MapPin, ArrowUpRight } from "lucide-react";
 import { destinations } from "../content";
 import { useBooking } from "./BookingModal";
 import { Country } from "../types";
 
-const countries: Country[] = ["Kenya", "Rwanda", "Uganda", "Tanzania"];
+const countries: Country[] = ["Uganda", "Kenya", "Rwanda", "Tanzania"];
+
+const toCountry = (v?: string): Country | undefined => countries.find((c) => c.toLowerCase() === v?.toLowerCase());
 
 interface Props {
   /** Limit the number of cards (used on the home page) */
@@ -13,6 +15,8 @@ interface Props {
   heading?: string;
   intro?: string;
   onSeeAll?: () => void;
+  /** country to show first (e.g. from the menu), case-insensitive */
+  initialCountry?: string;
 }
 
 export default function DestinationsList({
@@ -20,9 +24,14 @@ export default function DestinationsList({
   heading = "Destinations Across East Africa",
   intro = "Kenya, Rwanda, Uganda and Tanzania. Pick a country to see where we go.",
   onSeeAll,
+  initialCountry,
 }: Props) {
   const { openBooking } = useBooking();
-  const [active, setActive] = useState<Country>("Kenya");
+  const [active, setActive] = useState<Country>(toCountry(initialCountry) ?? "Uganda");
+  useEffect(() => {
+    const c = toCountry(initialCountry);
+    if (c) setActive(c);
+  }, [initialCountry]);
   const filtered = destinations.filter((d) => d.country === active);
   const shown = limit ? filtered.slice(0, limit) : filtered;
 
@@ -60,7 +69,7 @@ export default function DestinationsList({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-              className="group flex flex-col rounded-3xl bg-brand-charcoal overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 border border-white/10"
+              className="group flex flex-col rounded-3xl bg-brand-charcoal overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 gold-card"
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-brand-green">
                 <img

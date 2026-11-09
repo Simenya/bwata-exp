@@ -35,7 +35,7 @@ export default function AboutPage() {
           <h2 className="text-3xl font-serif font-black text-white text-center mb-10">Meet the Team</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {team.map((m) => (
-              <div key={m.name} className="bg-brand-charcoal border border-white/10 rounded-3xl p-7 text-center space-y-3 shadow-md">
+              <div key={m.name} className="bg-brand-charcoal gold-card rounded-3xl p-7 text-center space-y-3">
                 {/* Replace with team photos when supplied */}
                 <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-brand-green border-2 border-brand-gold text-2xl font-serif font-black" style={{ color: "#D4AF37" }}>
                   {m.initials}
