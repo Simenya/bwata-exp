@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, ChevronUp, Search, MessageSquare, PhoneCall, ArrowLeft } from "lucide-react";
-import { faqs } from "../data";
+import { faqs } from "../content";
 
 interface FAQProps {
   onBackToHome?: () => void;

@@ -3,111 +3,173 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Stats from "./components/Stats";
+import InterestGrid from "./components/InterestGrid";
 import DestinationsList from "./components/DestinationsList";
+import FeaturedPackages from "./components/FeaturedPackages";
+import BatwaTeaser from "./components/BatwaTeaser";
 import InteractivePlanner from "./components/InteractivePlanner";
-import LodgeShowcase from "./components/LodgeShowcase";
-import PrimateVideo from "./components/PrimateVideo";
 import BirdChecklist from "./components/BirdChecklist";
+import Testimonials from "./components/Testimonials";
 import WhyUs from "./components/WhyUs";
 import Gallery from "./components/Gallery";
-import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
+import AboutPage from "./components/AboutPage";
+import BatwaPage from "./components/BatwaPage";
+import ContactPage from "./components/ContactPage";
+import PageHeader from "./components/PageHeader";
+import InquiryForm from "./components/InquiryForm";
+import { BookingProvider } from "./components/BookingModal";
+import WhatsAppFloat from "./components/WhatsAppFloat";
+import { images } from "./content";
+import { BRAND } from "./brand";
+import { Page } from "./types";
+
+const PAGES: Page[] = ["home", "about", "batwa", "destinations", "packages", "gallery", "faq", "contact", "birding"];
+
+const TITLES: Record<Page, string> = {
+  home: `${BRAND.short} | East Africa Safaris: Kenya, Rwanda, Uganda & Tanzania`,
+  about: `About Us | ${BRAND.short}`,
+  batwa: `Batwa Cultural Experience, Bwindi | ${BRAND.short}`,
+  destinations: `Safari Destinations: Kenya, Rwanda, Uganda, Tanzania | ${BRAND.short}`,
+  packages: `Safari Packages & Itineraries | ${BRAND.short}`,
+  gallery: `Photo Gallery | ${BRAND.short}`,
+  faq: `FAQ | ${BRAND.short}`,
+  contact: `Contact & Booking | ${BRAND.short}`,
+  birding: `Top 100 Birds of Uganda Checklist | ${BRAND.short}`,
+};
+
+const pageFromHash = (): Page => {
+  const raw = window.location.hash.replace(/^#\/?/, "");
+  return (PAGES as string[]).includes(raw) ? (raw as Page) : "home";
+};
 
 export default function App() {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
-  const [currentPage, setCurrentPage] = useState<"home" | "birding" | "faq">("home");
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    try {
+      return localStorage.getItem("bwe-theme") === "dark" ? "dark" : "light";
+    } catch {
+      return "light";
+    }
+  });
+  const [page, setPage] = useState<Page>(pageFromHash);
 
   useEffect(() => {
-    // Read from localStorage on mount, default to dark
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    if (savedTheme === "light") {
-      setTheme("light");
-    } else {
-      setTheme("dark");
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    try {
+      localStorage.setItem("bwe-theme", theme);
+    } catch {
+      /* storage unavailable */
     }
+  }, [theme]);
+
+  useEffect(() => {
+    const onHash = () => setPage(pageFromHash());
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
   useEffect(() => {
-    const root = window.document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    document.title = TITLES[page];
+    window.scrollTo({ top: 0 });
+  }, [page]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  const navigate = useCallback((p: Page) => {
+    window.location.hash = p === "home" ? "" : `/${p}`;
+    setPage(p);
+  }, []);
 
-  const handlePageChange = (page: "home" | "birding" | "faq", hash?: string) => {
-    setCurrentPage(page);
-    if (page === "home") {
-      if (hash && hash !== "#home") {
-        setTimeout(() => {
-          const el = document.querySelector(hash);
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 100);
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
+  const goHome = useCallback(() => navigate("home"), [navigate]);
 
   return (
+    <BookingProvider>
     <div className="min-h-screen bg-brand-cream overflow-x-hidden selection:bg-brand-gold selection:text-brand-charcoal transition-colors duration-300">
-      {/* 1. Glass Floating Navigation */}
-      <Navbar theme={theme} onToggleTheme={toggleTheme} currentPage={currentPage} onPageChange={handlePageChange} />
+      <Navbar
+        theme={theme}
+        onToggleTheme={() => setTheme((t) => (t === "light" ? "dark" : "light"))}
+        currentPage={page}
+        onNavigate={navigate}
+      />
 
-      {currentPage === "home" ? (
-        <>
-          {/* 2. Hero Header with Interactive Coordinate Map */}
-          <Hero />
+      <main>
+        {page === "home" && (
+          <>
+            <Hero onNavigate={navigate} />
+            <InterestGrid />
+            <DestinationsList
+              limit={6}
+              heading="Where We Take You"
+              onSeeAll={() => navigate("destinations")}
+            />
+            <FeaturedPackages onNavigate={navigate} />
+            <BatwaTeaser onNavigate={navigate} />
+            <WhyUs />
+            <Testimonials />
+            <section className="py-16 lg:py-24 bg-brand-cream">
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 grid gap-10 lg:grid-cols-2 lg:items-center">
+                <div className="space-y-5 text-center lg:text-left">
+                  <h2 className="text-3xl sm:text-5xl font-serif font-black text-white leading-tight">Ready to Start Your Journey?</h2>
+                  <p className="text-gray-400 font-light max-w-md mx-auto lg:mx-0">
+                    Tell us where and when. We will build the route and reply with a tailored itinerary.
+                  </p>
+                  <div className="text-sm text-gray-300 space-y-1">
+                    <p>{BRAND.email}</p>
+                    <p>{BRAND.whatsappDisplay} · WhatsApp &amp; calls</p>
+                  </div>
+                </div>
+                <InquiryForm />
+              </div>
+            </section>
+          </>
+        )}
 
-          {/* 3. Global Statistics counter bar */}
-          <Stats />
+        {page === "about" && <AboutPage />}
+        {page === "batwa" && <BatwaPage />}
 
-          {/* 4. Popular Destinations Grid with Fort Portal Highlight */}
-          <DestinationsList />
+        {page === "destinations" && (
+          <>
+            <PageHeader
+              kicker="Safari Destinations"
+              title="Kenya, Rwanda, Uganda & Tanzania"
+              subtitle="The Masai Mara, Rwanda's volcanoes, Uganda's forests and Tanzania's Serengeti."
+              image={images.savannahSunset}
+            />
+            <DestinationsList heading="All Destinations" />
+            <InterestGrid />
+          </>
+        )}
 
-          {/* 5. Core Attraction: Interactive Day-by-Day Itinerary Planner */}
-          <InteractivePlanner />
+        {page === "packages" && (
+          <>
+            <PageHeader
+              kicker="Packages"
+              title="Safari Packages"
+              subtitle="From 3-day escapes to 10-day multi-country journeys across East Africa."
+              image={images.savannahSunset}
+            />
+            <InteractivePlanner />
+            <FeaturedPackages onNavigate={navigate} featuredOnly={false} />
+          </>
+        )}
 
-          {/* 6. Lodge Compare Segment (Luxury vs Classic Comfort) */}
-          <LodgeShowcase />
+        {page === "gallery" && (
+          <>
+            <PageHeader kicker="Gallery" title="Moments from East Africa" image={images.chimp} />
+            <Gallery />
+          </>
+        )}
 
-          {/* 7. Augmented Reality (AR) & Video media compartment */}
-          <PrimateVideo />
+        {page === "faq" && <FAQ onBackToHome={goHome} />}
+        {page === "contact" && <ContactPage />}
+        {page === "birding" && <BirdChecklist onBackToHome={goHome} />}
+      </main>
 
-          {/* 8. Core Value Proposition Grid */}
-          <WhyUs />
-
-          {/* 9. Travel Photo Chronicles Gallery with lightbox */}
-          <Gallery />
-
-          {/* 10. Guest testimonial sliders */}
-          <Testimonials />
-        </>
-      ) : currentPage === "birding" ? (
-        /* Standalone Birdwatching Checklist Page */
-        <BirdChecklist onBackToHome={() => handlePageChange("home")} />
-      ) : (
-        /* Standalone FAQ Page */
-        <FAQ onBackToHome={() => handlePageChange("home")} />
-      )}
-
-      {/* Rich Responsive Footer */}
-      <Footer />
+      <Footer onNavigate={navigate} />
+      <WhatsAppFloat />
     </div>
+    </BookingProvider>
   );
 }

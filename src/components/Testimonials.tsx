@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
-import { Star, Quote, Award } from "lucide-react";
-import { testimonials } from "../data";
+import { Star, Quote } from "lucide-react";
+import { testimonials } from "../content";
 
 export default function Testimonials() {
   return (
@@ -11,11 +11,11 @@ export default function Testimonials() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-white tracking-tight">
-              Loved by Over Thousand Travelers
+              What Our Travelers Say
             </h2>
           </div>
           <p className="text-gray-400 max-w-sm font-light text-sm leading-relaxed self-start md:self-end">
-            See what our guests say about their primate and birding expeditions co-hosted with Pearl Gorilla Tours.
+            Words from guests who have explored East Africa with us.
           </p>
         </div>
 
@@ -61,13 +61,6 @@ export default function Testimonials() {
                   <span className="font-serif font-black text-white text-base">
                     {test.name}
                   </span>
-                  <span className="text-[10px] uppercase font-mono tracking-wider text-gray-500 font-bold">
-                    {test.date}
-                  </span>
-                </div>
-                <div className="flex items-center space-x-1 text-xs text-brand-gold font-semibold">
-                  <Award className="w-3.5 h-3.5 text-brand-gold" />
-                  <span className="truncate max-w-[200px]">{test.tripType}</span>
                 </div>
               </div>
 

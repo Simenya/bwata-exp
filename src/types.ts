@@ -10,27 +10,19 @@ export interface ItineraryDay {
   image: string;
 }
 
-export interface Lodge {
-  name: string;
-  location: string;
-  stars: number;
-  price: string;
-  description: string;
-  image: string;
-  amenities: string[];
-}
-
 export interface Itinerary {
   id: string;
   name: string;
   subtitle: string;
-  price: string;
-  style: string;
+  duration: string;
+  countries: string[];
   overview: string;
+  highlights: string[];
   days: ItineraryDay[];
   inclusions: string[];
   exclusions: string[];
-  hotels: { location: string; name: string; why: string; tier: string }[];
+  featured?: boolean;
+  image: string;
 }
 
 export interface Bird {
@@ -41,22 +33,42 @@ export interface Bird {
   section: string;
 }
 
-export interface Testimonial {
-  id: string;
-  name: string;
-  rating: number;
-  quote: string;
-  tripType: string;
-  date: string;
-}
+export type Country = "Uganda" | "Kenya" | "Tanzania" | "Rwanda";
 
 export interface Destination {
   id: string;
-  title: string;
-  country: string;
-  price: string;
-  rating: number;
-  reviews: number;
+  name: string;
+  country: Country;
   tag: string;
+  summary: string;
+  highlights: string[];
+  image: string;
+  /** "direct" = we run it from Kampala; "partner" = arranged with regional partners */
+  operation: "direct" | "partner";
+}
+
+export interface Interest {
+  id: string;
+  title: string;
+  blurb: string;
   image: string;
 }
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  phone: string;
+  tel: string;
+  initials: string;
+}
+
+export type Page =
+  | "home"
+  | "about"
+  | "batwa"
+  | "destinations"
+  | "packages"
+  | "gallery"
+  | "faq"
+  | "contact"
+  | "birding";

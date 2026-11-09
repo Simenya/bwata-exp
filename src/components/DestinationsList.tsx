@@ -1,146 +1,129 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Star, MapPin, ArrowUpRight, Award, Flame } from "lucide-react";
-import { popularDestinations } from "../data";
+import { MapPin, ArrowUpRight } from "lucide-react";
+import { destinations } from "../content";
+import { useBooking } from "./BookingModal";
+import { Country } from "../types";
 
-export default function DestinationsList() {
-  const [activeFilter, setActiveFilter] = useState("All");
+const countries: ("All" | Country)[] = ["All", "Kenya", "Rwanda", "Uganda", "Tanzania"];
 
-  const filters = ["All", "Safari", "Adventure", "Culture"];
+interface Props {
+  /** Limit the number of cards (used on the home page) */
+  limit?: number;
+  heading?: string;
+  intro?: string;
+  onSeeAll?: () => void;
+}
 
-  const filteredDestinations = popularDestinations.filter((dest) => {
-    if (activeFilter === "All") return true;
-    if (activeFilter === "Safari") return dest.tag === "Safari" || dest.id === "fortportal-kibale";
-    if (activeFilter === "Adventure") return dest.tag === "Adventure";
-    if (activeFilter === "Culture") return dest.tag === "Culture";
-    return true;
-  });
+export default function DestinationsList({
+  limit,
+  heading = "Destinations Across East Africa",
+  intro = "Kenya, Rwanda, Uganda and Tanzania. Pick a country to see where we go.",
+  onSeeAll,
+}: Props) {
+  const { openBooking } = useBooking();
+  const [active, setActive] = useState<"All" | Country>("All");
+  const filtered = destinations.filter((d) => active === "All" || d.country === active);
+  // On a limited view, mix countries so no single one dominates
+  const balanced = () => {
+    const order: Country[] = ["Kenya", "Rwanda", "Uganda", "Tanzania"];
+    const groups = order.map((c) => filtered.filter((d) => d.country === c));
+    const out: typeof filtered = [];
+    for (let n = 0; out.length < filtered.length; n++) groups.forEach((g) => g[n] && out.push(g[n]));
+    return out;
+  };
+  const shown = limit ? (active === "All" ? balanced() : filtered).slice(0, limit) : filtered;
 
   return (
-    <section id="destinations" className="py-20 lg:py-28 bg-brand-cream relative">
-      {/* Decorative leafy/safari background pattern */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
-
+    <section id="destinations" className="py-16 lg:py-24 bg-brand-cream relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 space-y-4 md:space-y-0">
-          <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-white mt-3 tracking-tight">
-              Popular Destinations
-            </h2>
-          </div>
-          <p className="text-gray-400 max-w-md font-light text-sm">
-            Embark on vetted African adventures, specially curated to connect you directly to local operations. Featuring our signature combined Kibale & Fort Portal packages.
-          </p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-white tracking-tight">{heading}</h2>
+          <p className="text-gray-400 max-w-md font-light text-sm">{intro}</p>
         </div>
 
-        {/* Filter Navigation */}
-        <div className="flex items-center space-x-2 mb-10 overflow-x-auto pb-2 no-scrollbar">
-          {filters.map((filter) => (
+        <div className="flex items-center space-x-2 mb-10 overflow-x-auto pb-2 no-scrollbar" role="tablist" aria-label="Filter by country">
+          {countries.map((c) => (
             <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-wider font-bold transition-all whitespace-nowrap border ${
-                activeFilter === filter
-                  ? "bg-brand-gold text-brand-cream border-brand-gold shadow-lg shadow-brand-gold/10"
-                  : "bg-brand-charcoal border-white/5 text-gray-400 hover:border-brand-gold/35 hover:text-white"
+              key={c}
+              role="tab"
+              aria-selected={active === c}
+              onClick={() => setActive(c)}
+              className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-wider font-bold transition-all whitespace-nowrap border cursor-pointer ${
+                active === c
+                  ? "bg-brand-gold text-[#080C0A] border-brand-gold shadow-lg shadow-brand-gold/10"
+                  : "bg-brand-charcoal border-white/10 text-gray-400 hover:border-brand-gold/40 hover:text-white"
               }`}
             >
-              {filter}
+              {c}
             </button>
           ))}
         </div>
 
-        {/* Grid of Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredDestinations.map((dest, i) => {
-            const isFeatured = dest.id === "fortportal-kibale";
-            return (
-              <motion.div
-                key={dest.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`group relative flex flex-col rounded-3xl bg-brand-charcoal overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 border ${
-                  isFeatured
-                    ? "border-brand-gold/60 ring-4 ring-brand-gold/5 lg:col-span-1"
-                    : "border-white/5"
-                }`}
-              >
-                {/* Special Tag for Featured Item */}
-                {isFeatured && (
-                  <div className="absolute top-4 left-4 z-20 flex items-center space-x-1 px-3 py-1.5 bg-brand-gold text-brand-cream text-[10px] font-black uppercase tracking-wider rounded-lg shadow-md animate-pulse">
-                    <Flame className="w-3.5 h-3.5" />
-                    <span>Focus Package</span>
-                  </div>
-                )}
-
-                {/* Image Container */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={dest.image}
-                    alt={dest.title}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* Subtle vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-transparent to-transparent opacity-90" />
-                  
-                  {/* Standard Tag */}
-                  {!isFeatured && (
-                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-brand-green text-brand-gold text-[10px] font-bold uppercase tracking-wider rounded-lg shadow-sm">
-                      {dest.tag}
-                    </div>
-                  )}
-
-                  {/* Rating Badge */}
-                  <div className="absolute bottom-3 left-4 z-10 flex items-center space-x-1.5 bg-brand-cream/80 backdrop-blur-sm px-2.5 py-1 rounded-lg text-white text-xs font-semibold">
-                    <Star className="w-3.5 h-3.5 fill-current text-brand-gold" />
-                    <span>{dest.rating.toFixed(1)}</span>
-                    <span className="text-gray-400">({dest.reviews})</span>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {shown.map((d, i) => (
+            <motion.article
+              key={d.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
+              className="group flex flex-col rounded-3xl bg-brand-charcoal overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 border border-white/10"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden bg-brand-green">
+                <img
+                  src={d.image}
+                  alt={d.name}
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute top-4 left-4 px-3 py-1 bg-brand-green text-brand-gold text-[10px] font-bold uppercase tracking-wider rounded-lg">
+                  {d.tag}
                 </div>
-
-                {/* Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-1 text-gray-400 text-xs">
-                      <MapPin className="w-3.5 h-3.5 text-brand-gold" />
-                      <span>{dest.country}</span>
-                    </div>
-                    <h3 className="text-lg font-serif font-bold text-white group-hover:text-brand-gold transition-colors leading-snug">
-                      {dest.title}
-                    </h3>
-                  </div>
-
-                  {/* Pricing and Action */}
-                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/5">
-                    <div className="flex flex-col">
-                      <span className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">
-                        From
-                      </span>
-                      <span className="text-xl font-black text-brand-gold">
-                        ${dest.price}
-                        <span className="text-xs font-normal text-gray-500"> / pp</span>
-                      </span>
-                    </div>
-
-                    <a
-                      href="#itinerary-planner"
-                      className="flex items-center justify-center w-11 h-11 rounded-xl bg-brand-gold/15 text-brand-gold group-hover:bg-brand-gold group-hover:text-brand-cream transition-all duration-300"
-                    >
-                      <ArrowUpRight className="w-5 h-5" />
-                    </a>
-                  </div>
+                <div className="absolute bottom-3 left-4 flex items-center space-x-1 text-xs font-semibold" style={{ color: "#fff" }}>
+                  <MapPin className="w-3.5 h-3.5 text-brand-gold" />
+                  <span>{d.country}</span>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+
+              <div className="p-6 flex-1 flex flex-col space-y-3">
+                <h3 className="text-lg font-serif font-bold text-white group-hover:text-brand-gold transition-colors leading-snug">{d.name}</h3>
+                <p className="text-sm text-gray-400 font-light leading-relaxed">{d.summary}</p>
+                <ul className="text-xs text-gray-400 space-y-1 pt-1">
+                  {d.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-gold shrink-0" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/10">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500">{d.country}</span>
+                  <button
+                    onClick={() => openBooking(d.name)}
+                    aria-label={`Ask about ${d.name}`}
+                    className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand-gold/15 text-brand-gold group-hover:bg-brand-gold group-hover:text-[#080C0A] transition-all cursor-pointer"
+                  >
+                    <ArrowUpRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
 
+        {limit && onSeeAll && (
+          <div className="text-center mt-12">
+            <button
+              onClick={onSeeAll}
+              className="px-7 py-3.5 rounded-xl border border-brand-gold/40 text-brand-gold text-xs font-black uppercase tracking-wider hover:bg-brand-gold hover:text-[#080C0A] transition-colors cursor-pointer"
+            >
+              See All Destinations
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

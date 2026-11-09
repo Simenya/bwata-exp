@@ -1,8 +1,5 @@
-<div align="center">
-<img width="1200" height="auto" alt="Pearl Gorilla Safaris Logo" src="https://ik.imagekit.io/simenya/logos/Logo_Pearl_Gorilla_Tours.png" />
-</div>
 
-# Pearl Gorilla Safaris - East African Wildlife Tours
+# Batwa Wider Expedition Tour Ltd - Uganda, Kenya & East Africa Safaris
 
 Premium East African safari experiences specializing in mountain gorilla trekking, chimpanzee tours, and authentic wildlife adventures in Uganda, Rwanda, and Kenya.
 

@@ -1,161 +1,101 @@
-import { Facebook, Twitter, Instagram, Youtube, MapPin, Phone, Mail, Award } from "lucide-react";
+import { Facebook, Instagram, Star, MapPin, Phone, Mail } from "lucide-react";
+import Logo from "./Logo";
+import { BRAND } from "../brand";
+import { team } from "../content";
+import { Page } from "../types";
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+interface Props {
+  onNavigate: (p: Page) => void;
+}
+
+const quick: { label: string; page: Page }[] = [
+  { label: "About Us", page: "about" },
+  { label: "Batwa Experience", page: "batwa" },
+  { label: "Destinations", page: "destinations" },
+  { label: "Packages", page: "packages" },
+  { label: "Gallery", page: "gallery" },
+  { label: "FAQ", page: "faq" },
+  { label: "Contact & Booking", page: "contact" },
+];
+
+const regions = ["Kenya Safaris", "Rwanda Safaris", "Uganda Safaris", "Tanzania Safaris", "Gorilla Trekking", "Birding Checklist"];
+
+export default function Footer({ onNavigate }: Props) {
+  const year = new Date().getFullYear();
 
   return (
-    <footer id="footer" className="bg-brand-cream text-gray-300 border-t border-white/5 relative z-20">
+    <footer id="footer" className="bg-brand-green text-gray-300 relative z-20" style={{ color: "#d1d5db" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 border-b border-white/5 pb-12 mb-12">
-          
-          {/* Brand Info (Col 4) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 border-b border-white/10 pb-12 mb-10">
           <div className="lg:col-span-4 space-y-5">
-            <div className="flex items-center space-x-3">
-              <img
-                src="https://ik.imagekit.io/simenya/logos/Logo_Pearl_Gorilla_Tours.png"
-                alt="Pearl Gorilla Tours & Travel Safaris"
-                className="h-12 sm:h-14 w-auto object-contain"
-                referrerPolicy="no-referrer"
-              />
-              <div className="flex flex-col">
-                <span className="font-serif text-xl sm:text-2xl font-black text-white tracking-tight">
-                  Pearl Gorilla
-                </span>
-                <span className="text-[8px] uppercase tracking-widest text-brand-gold font-mono -mt-1 font-bold">
-                  Tours & Travel Safaris Ltd.
-                </span>
-              </div>
-            </div>
-
-            <p className="text-xs sm:text-sm text-gray-400 font-light leading-relaxed max-w-sm">
-              "One premium platform to discover, trust, and book authentic African travel experiences. Restoring trust in primate trails and volcanic crater expeditions."
+            <span className="[&_*]:!text-white [&_.font-mono]:!text-[#D4AF37] inline-block">
+              <Logo />
+            </span>
+            <p className="text-sm font-light leading-relaxed max-w-sm" style={{ color: "#d1d5db" }}>
+              {BRAND.tagline}. Gorilla trekking, wildlife and honest cultural experiences across East Africa.
             </p>
-
-            {/* Social Icons */}
-            <div className="flex items-center space-x-3.5 pt-2">
+            <div className="flex items-center space-x-3">
               {[
-                { icon: Facebook, href: "https://facebook.com" },
-                { icon: Twitter, href: "https://twitter.com" },
-                { icon: Instagram, href: "https://instagram.com" },
-                { icon: Youtube, href: "https://youtube.com" }
-              ].map((soc, idx) => {
-                const IconComponent = soc.icon;
-                return (
-                  <a
-                    key={idx}
-                    href={soc.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-gold hover:bg-white/10 transition-colors"
-                  >
-                    <IconComponent className="w-4 h-4" />
-                  </a>
-                );
-              })}
+                { icon: Facebook, href: BRAND.social.facebook, label: "Facebook" },
+                { icon: Instagram, href: BRAND.social.instagram, label: "Instagram" },
+                { icon: Star, href: BRAND.social.tripadvisor, label: "TripAdvisor" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-colors" style={{ color: "#D4AF37" }}>
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links (Col 2) */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs uppercase font-mono tracking-widest text-brand-gold font-bold">
-              Quick Links
-            </h4>
-            <ul className="space-y-2.5 text-xs font-light text-gray-400">
-              <li>
-                <a href="#destinations" className="hover:text-white transition-colors">
-                  Destinations
-                </a>
-              </li>
-              <li>
-                <a href="#itinerary-planner" className="hover:text-white transition-colors">
-                  Experiences
-                </a>
-              </li>
-              <li>
-                <a href="#lodges" className="hover:text-white transition-colors">
-                  Operators & Lodges
-                </a>
-              </li>
-              <li>
-                <a href="#why-us" className="hover:text-white transition-colors">
-                  Trust & Safety
-                </a>
-              </li>
+            <h4 className="text-xs uppercase font-mono tracking-widest font-bold" style={{ color: "#D4AF37" }}>Quick Links</h4>
+            <ul className="space-y-2.5 text-sm font-light">
+              {quick.map((q) => (
+                <li key={q.label}>
+                  <button onClick={() => onNavigate(q.page)} className="hover:underline cursor-pointer text-left" style={{ color: "#e5e7eb" }}>{q.label}</button>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Destination Categories (Col 3) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs uppercase font-mono tracking-widest text-brand-gold font-bold">
-              Destination Categories
-            </h4>
-            <ul className="space-y-2.5 text-xs font-light text-gray-400">
-              <li>
-                <a href="#itinerary-planner" className="hover:text-white transition-colors">
-                  Road Trips & Transits
-                </a>
-              </li>
-              <li>
-                <a href="#itinerary-planner" className="hover:text-white transition-colors">
-                  Art & Primate Culture
-                </a>
-              </li>
-              <li>
-                <a href="#itinerary-planner" className="hover:text-white transition-colors">
-                  Mountain Adventure
-                </a>
-              </li>
-              <li>
-                <a href="#itinerary-planner" className="hover:text-white transition-colors">
-                  Savannah Wildlife Safari
-                </a>
-              </li>
+            <h4 className="text-xs uppercase font-mono tracking-widest font-bold" style={{ color: "#D4AF37" }}>Explore East Africa</h4>
+            <ul className="space-y-2.5 text-sm font-light">
+              {regions.map((r) => (
+                <li key={r}>
+                  <button onClick={() => onNavigate(r.startsWith("Birding") ? "birding" : "destinations")} className="hover:underline cursor-pointer text-left" style={{ color: "#e5e7eb" }}>{r}</button>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact & Address (Col 3) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs uppercase font-mono tracking-widest text-brand-gold font-bold">
-              Address & Bookings
-            </h4>
-            <ul className="space-y-3.5 text-xs font-light text-gray-400">
+            <h4 className="text-xs uppercase font-mono tracking-widest font-bold" style={{ color: "#D4AF37" }}>Address & Bookings</h4>
+            <ul className="space-y-3 text-sm font-light">
               <li className="flex items-start space-x-2">
-                <MapPin className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-                <div className="flex flex-col">
-                  <span>Main Office: Fort Portal, Uganda</span>
-                  
-                </div>
+                <MapPin className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
+                <span>Head Office: {BRAND.office}</span>
               </li>
+              {team.map((m) => (
+                <li key={m.name} className="flex items-start space-x-2">
+                  <Phone className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
+                  <a href={`tel:${m.tel}`} className="hover:underline">
+                    {m.name.split(" ")[0]} · {m.phone}
+                    <span className="block text-xs opacity-70">{m.role}</span>
+                  </a>
+                </li>
+              ))}
               <li className="flex items-start space-x-2">
-                <Phone className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-                <div className="flex flex-col">
-                  <span>+256 769 805 075 (WhatsApp | Call)</span>
-                </div>
-              </li>
-              <li className="flex items-start space-x-2">
-                <Mail className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-                <div className="flex flex-col"> 
-                  <span>info@pearlgorillatours.com</span>
-                </div>
+                <Mail className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
+                <a href={`mailto:${BRAND.email}`} className="hover:underline break-all">{BRAND.email}</a>
               </li>
             </ul>
-          </div>
-
-        </div>
-
-        {/* Footer Base bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-light pt-2">
-          <div className="flex items-center space-x-1.5"> 
-            <span>© {currentYear} Pearl Gorilla Tours & Travel Safaris Ltd. All rights reserved.</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <a href="#faq" className="hover:text-white transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="#faq" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
 
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-light" style={{ color: "#9ca3af" }}>
+          <span>© {year} {BRAND.name}. All rights reserved.</span>
+        </div>
       </div>
     </footer>
   );

@@ -1,46 +1,42 @@
 import { motion } from "motion/react";
-import { Compass, Users, BadgeCheck } from "lucide-react";
+import { Compass, Users, BadgeCheck, HeartHandshake } from "lucide-react";
+
+const cards = [
+  {
+    title: "Local Kampala Experts",
+    description: "Our head office is in Kampala. You deal directly with the owners, not a call centre.",
+    icon: Users,
+  },
+  {
+    title: "One Booking, Four Countries",
+    description: "Kenya, Rwanda, Uganda and Tanzania, planned together so you book once.",
+    icon: Compass,
+  },
+  {
+    title: "Honest Community Tourism",
+    description: "We are not a Batwa organisation, we are partners. Part of every visit goes straight to the community.",
+    icon: HeartHandshake,
+  },
+  {
+    title: "Clear, Itemised Quotes",
+    description: "Every quote lists what is and is not included, such as gorilla permits and flights.",
+    icon: BadgeCheck,
+  },
+];
 
 export default function WhyUs() {
-  const cards = [
-    {
-      title: "Curated Destinations",
-      description: "Hand-picked locations that showcase the absolute best of Africa, connecting primate canopies to volcanic ridges.",
-      icon: Compass,
-      color: "bg-brand-gold/15 text-brand-gold border-brand-gold/20"
-    },
-    {
-      title: "Expert Guides",
-      description: "Local certified experts with deep-seated knowledge, wildlife passion, and official primatologist accreditations.",
-      icon: Users,
-      color: "bg-brand-gold/15 text-brand-gold border-brand-gold/20"
-    },
-    {
-      title: "Quality Assured",
-      description: "Rigorous standards for high-end transport safety, boutique accommodations, and official park permit guarantees.",
-      icon: BadgeCheck,
-      color: "bg-brand-gold/15 text-brand-gold border-brand-gold/20"
-    }
-  ];
-
   return (
-    <section id="why-us" className="py-20 lg:py-24 bg-brand-cream relative">
+    <section id="why-us" className="py-16 lg:py-24 bg-brand-cream relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <h2 className="text-3xl sm:text-4xl font-serif font-black text-white tracking-tight">
-            Why Travel With Us
-          </h2>
+        <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
+          <h2 className="text-3xl sm:text-4xl font-serif font-black text-white tracking-tight">Why Travel With Us</h2>
           <p className="text-gray-400 font-light text-sm sm:text-base leading-relaxed">
-            We make your African adventure seamless, memorable, and safe. Co-branded with elite operators to ensure direct local benefits.
+            Seamless, memorable, safe, and honest about who does what.
           </p>
         </div>
-
-        {/* Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {cards.map((card, i) => {
-            const IconComponent = card.icon;
+            const Icon = card.icon;
             return (
               <motion.div
                 key={card.title}
@@ -48,22 +44,17 @@ export default function WhyUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex flex-col p-8 bg-brand-charcoal border border-white/5 rounded-3xl hover:-translate-y-1 transition-all duration-300"
+                className="flex flex-col p-7 bg-brand-charcoal border border-white/10 rounded-3xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className={`p-4 rounded-2xl w-14 h-14 flex items-center justify-center border mb-6 ${card.color}`}>
-                  <IconComponent className="w-6 h-6" />
+                <div className="p-4 rounded-2xl w-14 h-14 flex items-center justify-center border mb-5 bg-brand-gold/15 text-brand-gold border-brand-gold/20">
+                  <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white font-serif mb-3">
-                  {card.title}
-                </h3>
-                <p className="text-sm text-gray-400 font-light leading-relaxed">
-                  {card.description}
-                </p>
+                <h3 className="text-lg font-bold text-white font-serif mb-2">{card.title}</h3>
+                <p className="text-sm text-gray-400 font-light leading-relaxed">{card.description}</p>
               </motion.div>
             );
           })}
         </div>
-
       </div>
     </section>
   );
