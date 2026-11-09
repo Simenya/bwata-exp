@@ -19,8 +19,8 @@ const IMG = {
   mburo: "https://ik.imagekit.io/simenya/assets/lake_mburo_np.png",
   gameDrive: "https://ik.imagekit.io/simenya/assets/Featured-Game-Drive-Sunrise-Safari-Jeep.jpg",
   mweya: "https://ik.imagekit.io/simenya/assets/mweya_safari_lodge.jpg",
-  batwa: "/batwa-experience.jpg",
-  cultural: "/cultural.jpg",
+  batwa: `${import.meta.env.BASE_URL}batwa-experience.jpg`,
+  cultural: `${import.meta.env.BASE_URL}cultural.jpg`,
 };
 
 export const images = IMG;

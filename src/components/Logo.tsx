@@ -9,7 +9,7 @@ export function LogoMark({ className = "h-12 w-12" }: { className?: string }) {
   return (
     <span className={`block shrink-0 overflow-hidden rounded-full bg-white ring-2 ring-[#D4AF37] ${className}`}>
       <img
-        src="/logo.jpg"
+        src={`${import.meta.env.BASE_URL}logo.jpg`}
         alt="Batwa Wider Expedition Tour Ltd logo"
         className="h-full w-full scale-[1.1] object-cover"
       />

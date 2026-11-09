@@ -5,6 +5,8 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // Set VITE_BASE=/repo-name/ when deploying under a sub-path (e.g. GitHub Pages)
+    base: process.env.VITE_BASE || '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
