@@ -6,10 +6,10 @@ import { useBooking } from "./BookingModal";
 import { Page } from "../types";
 
 const slides = [
-  { image: images.savannahSunset, title: "Safaris Across East Africa", text: "Kenya · Rwanda · Uganda · Tanzania" },
   { image: images.gorilla, title: "Gorilla & Primate Trekking", text: "From Rwanda's volcanoes to Uganda's Bwindi forest" },
   { image: images.lions, title: "The Masai Mara & the Big Five", text: "Wildlife adventures in Kenya and Tanzania" },
   { image: images.cultural, title: "Authentic Cultural Journeys", text: "Community-led, respectful and unforgettable" },
+  { image: images.savannahSunset, title: "Safaris Across East Africa", text: "Kenya · Rwanda · Uganda · Tanzania" },
 ];
 
 interface HeroProps {
