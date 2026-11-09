@@ -13,7 +13,6 @@ const quick: { label: string; page: Page }[] = [
   { label: "Batwa Experience", page: "batwa" },
   { label: "Destinations", page: "destinations" },
   { label: "Packages", page: "packages" },
-  { label: "Gallery", page: "gallery" },
   { label: "FAQ", page: "faq" },
   { label: "Contact & Booking", page: "contact" },
 ];
@@ -25,7 +24,7 @@ export default function Footer({ onNavigate }: Props) {
 
   return (
     <footer id="footer" className="bg-brand-green text-gray-300 relative z-20" style={{ color: "#d1d5db" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" style={{ color: "#e5e7eb" }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 border-b border-white/10 pb-12 mb-10">
           <div className="lg:col-span-4 space-y-5">
             <span className="[&_*]:!text-white [&_.font-mono]:!text-[#D4AF37] inline-block">
@@ -74,20 +73,17 @@ export default function Footer({ onNavigate }: Props) {
             <ul className="space-y-3 text-sm font-light">
               <li className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
-                <span>Head Office: {BRAND.office}</span>
+                <span style={{ color: "#e5e7eb" }}>Head Office: {BRAND.office}</span>
               </li>
               {team.map((m) => (
-                <li key={m.name} className="flex items-start space-x-2">
+                <li key={m.tel} className="flex items-start space-x-2">
                   <Phone className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
-                  <a href={`tel:${m.tel}`} className="hover:underline">
-                    {m.name.split(" ")[0]} · {m.phone}
-                    <span className="block text-xs opacity-70">{m.role}</span>
-                  </a>
+                  <a href={`tel:${m.tel}`} className="hover:underline" style={{ color: "#e5e7eb" }}>{m.phone}</a>
                 </li>
               ))}
               <li className="flex items-start space-x-2">
                 <Mail className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
-                <a href={`mailto:${BRAND.email}`} className="hover:underline break-all">{BRAND.email}</a>
+                <a href={`mailto:${BRAND.email}`} className="hover:underline break-all" style={{ color: "#e5e7eb" }}>{BRAND.email}</a>
               </li>
             </ul>
           </div>

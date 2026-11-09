@@ -68,7 +68,6 @@ export type Page =
   | "batwa"
   | "destinations"
   | "packages"
-  | "gallery"
   | "faq"
   | "contact"
   | "birding";

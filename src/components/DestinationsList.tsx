@@ -5,7 +5,7 @@ import { destinations } from "../content";
 import { useBooking } from "./BookingModal";
 import { Country } from "../types";
 
-const countries: ("All" | Country)[] = ["All", "Kenya", "Rwanda", "Uganda", "Tanzania"];
+const countries: Country[] = ["Kenya", "Rwanda", "Uganda", "Tanzania"];
 
 interface Props {
   /** Limit the number of cards (used on the home page) */
@@ -22,17 +22,9 @@ export default function DestinationsList({
   onSeeAll,
 }: Props) {
   const { openBooking } = useBooking();
-  const [active, setActive] = useState<"All" | Country>("All");
-  const filtered = destinations.filter((d) => active === "All" || d.country === active);
-  // On a limited view, mix countries so no single one dominates
-  const balanced = () => {
-    const order: Country[] = ["Kenya", "Rwanda", "Uganda", "Tanzania"];
-    const groups = order.map((c) => filtered.filter((d) => d.country === c));
-    const out: typeof filtered = [];
-    for (let n = 0; out.length < filtered.length; n++) groups.forEach((g) => g[n] && out.push(g[n]));
-    return out;
-  };
-  const shown = limit ? (active === "All" ? balanced() : filtered).slice(0, limit) : filtered;
+  const [active, setActive] = useState<Country>("Kenya");
+  const filtered = destinations.filter((d) => d.country === active);
+  const shown = limit ? filtered.slice(0, limit) : filtered;
 
   return (
     <section id="destinations" className="py-16 lg:py-24 bg-brand-cream relative">

@@ -1,4 +1,3 @@
-import { Phone } from "lucide-react";
 import PageHeader from "./PageHeader";
 import WhyUs from "./WhyUs";
 import { team, images } from "../content";
@@ -43,9 +42,6 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-lg font-serif font-bold text-white">{m.name}</h3>
                 <p className="text-xs uppercase tracking-wider font-mono text-brand-gold font-bold">{m.role}</p>
-                <a href={`tel:${m.tel}`} className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-brand-gold transition-colors">
-                  <Phone className="w-4 h-4" /> {m.phone}
-                </a>
               </div>
             ))}
           </div>
@@ -56,7 +52,7 @@ export default function AboutPage() {
               rel="noreferrer"
               className="inline-block px-7 py-3.5 rounded-xl bg-brand-gold text-[#080C0A] text-xs font-black uppercase tracking-wider hover:bg-white transition-colors"
             >
-              Chat With Victor
+              Chat With Us
             </a>
           </div>
         </div>

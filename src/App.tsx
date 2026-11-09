@@ -13,8 +13,6 @@ import BatwaTeaser from "./components/BatwaTeaser";
 import InteractivePlanner from "./components/InteractivePlanner";
 import BirdChecklist from "./components/BirdChecklist";
 import Testimonials from "./components/Testimonials";
-import WhyUs from "./components/WhyUs";
-import Gallery from "./components/Gallery";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import AboutPage from "./components/AboutPage";
@@ -28,7 +26,7 @@ import { images } from "./content";
 import { BRAND } from "./brand";
 import { Page } from "./types";
 
-const PAGES: Page[] = ["home", "about", "batwa", "destinations", "packages", "gallery", "faq", "contact", "birding"];
+const PAGES: Page[] = ["home", "about", "batwa", "destinations", "packages", "faq", "contact", "birding"];
 
 const TITLES: Record<Page, string> = {
   home: `${BRAND.short} | East Africa Safaris: Kenya, Rwanda, Uganda & Tanzania`,
@@ -36,7 +34,6 @@ const TITLES: Record<Page, string> = {
   batwa: `Batwa Cultural Experience, Bwindi | ${BRAND.short}`,
   destinations: `Safari Destinations: Kenya, Rwanda, Uganda, Tanzania | ${BRAND.short}`,
   packages: `Safari Packages & Itineraries | ${BRAND.short}`,
-  gallery: `Photo Gallery | ${BRAND.short}`,
   faq: `FAQ | ${BRAND.short}`,
   contact: `Contact & Booking | ${BRAND.short}`,
   birding: `Top 100 Birds of Uganda Checklist | ${BRAND.short}`,
@@ -106,7 +103,6 @@ export default function App() {
             />
             <FeaturedPackages onNavigate={navigate} />
             <BatwaTeaser onNavigate={navigate} />
-            <WhyUs />
             <Testimonials />
             <section className="py-16 lg:py-24 bg-brand-cream">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -152,13 +148,6 @@ export default function App() {
             />
             <InteractivePlanner />
             <FeaturedPackages onNavigate={navigate} featuredOnly={false} />
-          </>
-        )}
-
-        {page === "gallery" && (
-          <>
-            <PageHeader kicker="Gallery" title="Moments from East Africa" image={images.chimp} />
-            <Gallery />
           </>
         )}
 

@@ -456,14 +456,6 @@ export const team: TeamMember[] = [
   { name: "Bukenya Brain", role: "International Liaison, USA", phone: "0773 336 979", tel: "+256773336979", initials: "BB" },
 ];
 
-export const galleryPhotos = [
-  { id: 1, title: "Batwa Cultural Experience", location: "Bwindi, Uganda", image: IMG.batwa },
-  { id: 2, title: "Primate Trekking", location: "Uganda & Rwanda", image: IMG.chimp },
-  { id: 3, title: "Mountain Gorilla Country", location: "Bwindi, Uganda / Volcanoes, Rwanda", image: IMG.bwindiTrek },
-  { id: 4, title: "Savannah Sunset", location: "Masai Mara, Kenya", image: IMG.savannahSunset },
-  { id: 5, title: "Zebras on the Plains", location: "East Africa", image: IMG.zebras },
-  { id: 6, title: "Forest & Crater Lakes", location: "Fort Portal, Uganda", image: IMG.forest },
-];
 
 export const testimonials = [
   { id: "1", name: "Jameson Reynolds", rating: 5, quote: "Absolutely magical experience! The chimpanzee trekking in Kibale Forest and standing next to mountain gorillas in Bwindi was a soul-stirring journey. The team took care of everything seamlessly—the Ndali lodge was out of this world, with volcanic crater views that I'll remember forever." },

@@ -16,11 +16,8 @@ interface NavbarProps {
 const menuItems: { name: string; page: Page }[] = [
   { name: "Home", page: "home" },
   { name: "About", page: "about" },
-  { name: "Batwa Experience", page: "batwa" },
+  { name: "Experience", page: "batwa" },
   { name: "Destinations", page: "destinations" },
-  { name: "Packages", page: "packages" },
-  { name: "Gallery", page: "gallery" },
-  { name: "FAQ", page: "faq" },
   { name: "Contact", page: "contact" },
 ];
 
@@ -96,7 +93,7 @@ export default function Navbar({ theme, onToggleTheme, currentPage, onNavigate }
               onClick={() => openBooking()}
               className="hidden sm:inline-flex items-center px-4 py-2.5 rounded-lg bg-brand-gold text-[#080C0A] text-[11px] font-black uppercase tracking-wider hover:bg-white transition-colors cursor-pointer"
             >
-              Book Now
+              Book
             </button>
             <a
               href={whatsappLink()}
@@ -154,15 +151,24 @@ export default function Navbar({ theme, onToggleTheme, currentPage, onNavigate }
                   {item.name}
                 </button>
               ))}
-              <div className="pt-3 px-1">
+              <div className="pt-3 px-1 space-y-2">
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    openBooking();
+                  }}
+                  className="flex items-center justify-center w-full py-3 rounded-lg bg-brand-gold text-[#080C0A] text-xs font-black uppercase tracking-wider cursor-pointer"
+                >
+                  Book
+                </button>
                 <a
                   href={whatsappLink()}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-center space-x-2 w-full py-3 rounded-lg bg-brand-gold text-[#080C0A] text-xs font-black uppercase tracking-wider"
+                  className="flex items-center justify-center space-x-2 w-full py-3 rounded-lg border border-brand-gold/40 text-brand-gold text-xs font-black uppercase tracking-wider"
                 >
                   <PhoneCall className="w-4 h-4" />
-                  <span>WhatsApp Victor: {BRAND.whatsappDisplay}</span>
+                  <span>WhatsApp: {BRAND.whatsappDisplay}</span>
                 </a>
               </div>
             </div>
