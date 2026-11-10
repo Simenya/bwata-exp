@@ -229,7 +229,7 @@ export default function BirdChecklist({ onBackToHome }: BirdChecklistProps) {
             </p>
           </div>
           <a
-            href="https://wa.me/256769805075?text=Hi! I am interested in booking a dedicated birding safari in Uganda based on the Top 100 Checklist."
+            href="https://wa.me/256782380577?text=Hi! I am interested in booking a dedicated birding safari in Uganda based on the Top 100 Checklist."
             target="_blank"
             rel="noreferrer"
             className="px-4.5 py-2.5 bg-brand-gold hover:bg-white text-[#080C0A] text-[11px] font-black uppercase tracking-widest rounded-lg transition-colors shrink-0"

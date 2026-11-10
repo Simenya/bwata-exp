@@ -5,7 +5,7 @@ import { BRAND, whatsappLink } from "../brand";
 import { team, images } from "../content";
 
 export default function ContactPage() {
-  const [victor, edith, bukenya] = team;
+  const [, edith, bukenya] = team;
   return (
     <>
       <PageHeader kicker="Contact & Booking" title="Plan Your Safari" subtitle="Message us, call us, or send the form. We reply with a tailored quote." image={images.savannahSunset} />
@@ -25,8 +25,8 @@ export default function ContactPage() {
               >
                 <MessageCircle className="w-6 h-6 shrink-0" />
                 <span>
-                  WhatsApp {victor.name.split(" ")[0]}
-                  <span className="block text-xs font-normal opacity-90">{victor.phone}</span>
+                  WhatsApp Us
+                  <span className="block text-xs font-normal opacity-90">{BRAND.whatsappDisplay}</span>
                 </span>
               </a>
               <a href={`tel:${edith.tel}`} className="flex items-center gap-4 px-6 py-5 text-white hover:bg-white/5 transition">

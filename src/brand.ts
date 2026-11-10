@@ -5,8 +5,8 @@ export const BRAND = {
   email: "info@batwawiderexpedition.com",
   domain: "https://www.batwawiderexpedition.com",
   office: "Kampala, Uganda",
-  whatsappNumber: "256769805075", // Victor Wifred, CEO
-  whatsappDisplay: "0769 805 075",
+  whatsappNumber: "256782380577", // WhatsApp line (international format, no leading 0)
+  whatsappDisplay: "0782 380 577",
   social: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",

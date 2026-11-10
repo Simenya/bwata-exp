@@ -90,7 +90,7 @@ export default function FAQ({ onBackToHome }: FAQProps) {
             </p>
           </div>
           <a
-            href="https://wa.me/256769805075"
+            href="https://wa.me/256782380577"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center space-x-1.5 px-4 py-2.5 bg-brand-gold hover:bg-white text-[#080C0A] text-[11px] font-black uppercase tracking-wider rounded-lg shadow-sm shrink-0 transition-all"
