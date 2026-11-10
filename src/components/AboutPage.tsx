@@ -1,6 +1,6 @@
 import PageHeader from "./PageHeader";
 import WhyUs from "./WhyUs";
-import { team, images } from "../content";
+import { images } from "../content";
 import { whatsappLink } from "../brand";
 
 export default function AboutPage() {
@@ -24,37 +24,19 @@ export default function AboutPage() {
           <p>
             Part of every visit goes <strong className="text-white">directly to the Batwa community</strong>, and 100% of craft sales go to the artisans. When you travel with us, you support real community livelihoods, education and cultural preservation.
           </p>
-          <p>
-            Led by CEO Victor Wifred, Co-Owner Edith Kabahenda and USA Representative Bukenya Brain, we are committed to honest, respectful and community-based tourism.
-          </p>
         </div>
       </section>
 
       <section className="pb-16 bg-brand-cream">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl font-serif font-black text-white text-center mb-10">Meet the Team</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {team.map((m) => (
-              <div key={m.name} className="bg-brand-charcoal gold-card rounded-3xl p-7 text-center space-y-3">
-                {/* Replace with team photos when supplied */}
-                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-brand-green border-2 border-brand-gold text-2xl font-serif font-black" style={{ color: "#D4AF37" }}>
-                  {m.initials}
-                </div>
-                <h3 className="text-lg font-serif font-bold text-white">{m.name}</h3>
-                <p className="text-xs uppercase tracking-wider font-mono text-brand-gold font-bold">{m.role}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <a
-              href={whatsappLink("Hello Batwa Wider Expedition! I'd like to talk about a safari.")}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block px-7 py-3.5 rounded-xl bg-brand-gold text-[#080C0A] text-xs font-black uppercase tracking-wider hover:bg-white transition-colors"
-            >
-              Chat With Us
-            </a>
-          </div>
+        <div className="text-center">
+          <a
+            href={whatsappLink("Hello Batwa Wider Expedition! I'd like to talk about a safari.")}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block px-7 py-3.5 rounded-xl bg-brand-gold text-[#080C0A] text-xs font-black uppercase tracking-wider hover:bg-white transition-colors"
+          >
+            Chat With Us
+          </a>
         </div>
       </section>
 

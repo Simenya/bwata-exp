@@ -17,6 +17,13 @@ const quick: { label: string; page: Page }[] = [
   { label: "Contact & Booking", page: "contact" },
 ];
 
+/** Booking numbers in international format; the main WhatsApp line comes first */
+const intl = (local: string) => `+256 ${local.replace(/\s/g, "").slice(1).replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}`;
+const contacts = [
+  { tel: `+${BRAND.whatsappNumber}`, label: `+${BRAND.whatsappNumber.slice(0, 3)} ${BRAND.whatsappNumber.slice(3).replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}` },
+  ...team.filter((m) => m.tel !== `+${BRAND.whatsappNumber}`).map((m) => ({ tel: m.tel, label: intl(m.phone) })),
+];
+
 const regions = ["Kenya Safaris", "Rwanda Safaris", "Uganda Safaris", "Tanzania Safaris", "Gorilla Trekking", "Birding Checklist"];
 
 export default function Footer({ onNavigate }: Props) {
@@ -75,10 +82,10 @@ export default function Footer({ onNavigate }: Props) {
                 <MapPin className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
                 <span style={{ color: "#e5e7eb" }}>Head Office: {BRAND.office}</span>
               </li>
-              {team.map((m) => (
-                <li key={m.tel} className="flex items-start space-x-2">
+              {contacts.map((c) => (
+                <li key={c.tel} className="flex items-start space-x-2">
                   <Phone className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#D4AF37" }} />
-                  <a href={`tel:${m.tel}`} className="hover:underline" style={{ color: "#e5e7eb" }}>{m.phone}</a>
+                  <a href={`tel:${c.tel}`} className="hover:underline" style={{ color: "#e5e7eb" }}>{c.label}</a>
                 </li>
               ))}
               <li className="flex items-start space-x-2">
