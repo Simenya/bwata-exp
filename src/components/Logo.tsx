@@ -1,32 +1,26 @@
 interface LogoProps {
   className?: string;
-  /** hide the written name next to the round logo */
+  /** kept for compatibility; the full logo already includes the company name */
   markOnly?: boolean;
 }
 
-/** Circular company logo (public/logo.jpg), cropped to its outer ring. */
+/** Company logo (public/logo.jpg), shown in full so the ring lettering is not cropped. */
 export function LogoMark({ className = "h-12 w-12" }: { className?: string }) {
   return (
-    <span className={`block shrink-0 overflow-hidden rounded-full bg-white ring-2 ring-[#D4AF37] ${className}`}>
+    <span className={`block shrink-0 ${className}`}>
       <img
         src={`${import.meta.env.BASE_URL}logo.jpg`}
-        alt="Batwa Wider Expedition Tour Ltd logo"
-        className="h-full w-full scale-[1.1] object-cover"
+        alt="Batwa Tours and Travel logo"
+        className="h-full w-full object-contain"
       />
     </span>
   );
 }
 
-export default function Logo({ className = "", markOnly = false }: LogoProps) {
+export default function Logo({ className = "" }: LogoProps) {
   return (
-    <span className={`flex items-center gap-3 ${className}`}>
-      <LogoMark className="h-12 w-12 sm:h-14 sm:w-14" />
-      {!markOnly && (
-        <span className="flex flex-col leading-tight text-left">
-          <span className="font-serif text-base sm:text-lg font-black tracking-tight text-white">Batwa Wider Expedition</span>
-          <span className="text-[9px] uppercase tracking-[0.2em] text-brand-gold font-mono font-bold">Tour Ltd · East Africa</span>
-        </span>
-      )}
+    <span className={`flex items-center ${className}`}>
+      <LogoMark className="h-14 w-14 sm:h-16 sm:w-16" />
     </span>
   );
 }
