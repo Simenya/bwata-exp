@@ -453,7 +453,7 @@ export const faqs = [
 export const team: TeamMember[] = [
   { name: "Victor Wifred", role: "CEO", phone: "0769 805 075", tel: "+256769805075", initials: "VW" },
   { name: "Edith Kabahenda", role: "Co-Owner / Partnerships", phone: "0782 380 577", tel: "+256782380577", initials: "EK" },
-  { name: "Bukenya Brain", role: "International Liaison, USA", phone: "0773 336 979", tel: "+256773336979", initials: "BB" },
+  { name: "Bukenya Brain", role: "International Liaison, USA", phone: "+1 (267) 333-6979", tel: "+12673336979", initials: "BB" },
 ];
 
 

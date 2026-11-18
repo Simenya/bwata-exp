@@ -21,7 +21,7 @@ const quick: { label: string; page: Page }[] = [
 const intl = (local: string) => `+256 ${local.replace(/\s/g, "").slice(1).replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}`;
 const contacts = [
   { tel: `+${BRAND.whatsappNumber}`, label: `+${BRAND.whatsappNumber.slice(0, 3)} ${BRAND.whatsappNumber.slice(3).replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}` },
-  ...team.filter((m) => m.tel !== `+${BRAND.whatsappNumber}`).map((m) => ({ tel: m.tel, label: intl(m.phone) })),
+  ...team.filter((m) => m.tel !== `+${BRAND.whatsappNumber}`).map((m) => ({ tel: m.tel, label: m.phone.startsWith("+") ? m.phone : intl(m.phone) })),
 ];
 
 const regions = ["Kenya Safaris", "Rwanda Safaris", "Uganda Safaris", "Tanzania Safaris", "Gorilla Trekking", "Birding Checklist"];
