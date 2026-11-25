@@ -26,10 +26,11 @@ export default function MobileActionBar() {
           href={whatsappLink("Hello Batwa Wider Expedition! I would like to plan a safari.")}
           target="_blank"
           rel="noreferrer"
-          className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 py-3 text-sm font-bold text-white"
+          className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 py-3 text-sm font-bold"
+          style={{ color: "#ffffff" }}
         >
-          <MessageCircle className="h-5 w-5 text-[#25D366]" />
-          WhatsApp
+          <MessageCircle className="h-5 w-5" style={{ color: "#25D366" }} />
+          <span style={{ color: "#ffffff" }}>WhatsApp</span>
         </a>
         <button
           type="button"
