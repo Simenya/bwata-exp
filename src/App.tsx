@@ -22,6 +22,7 @@ import PageHeader from "./components/PageHeader";
 import InquiryForm from "./components/InquiryForm";
 import { BookingProvider } from "./components/BookingModal";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+import MobileActionBar from "./components/MobileActionBar";
 import { images } from "./content";
 import { BRAND } from "./brand";
 import { Page } from "./types";
@@ -159,6 +160,7 @@ export default function App() {
 
       <Footer onNavigate={navigate} />
       <WhatsAppFloat />
+      <MobileActionBar />
     </div>
     </BookingProvider>
   );
