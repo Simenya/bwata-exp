@@ -3,4 +3,4 @@ Allow: /
 Disallow: /.env
 Disallow: /.git
 
-Sitemap: https://www.batwawiderexpedition.com/sitemap.xml
+Sitemap: https://batwawiderexpeditiontours.com/sitemap.xml

@@ -2,8 +2,8 @@ export const BRAND = {
   name: "Batwa Wider Expedition Tour Ltd",
   short: "Batwa Wider Expedition",
   tagline: "Safaris & Cultural Journeys Across East Africa",
-  email: "info@batwawiderexpedition.com",
-  domain: "https://www.batwawiderexpedition.com",
+  email: "info@batwawiderexpeditiontours.com",
+  domain: "https://batwawiderexpeditiontours.com",
   office: "Kampala, Uganda",
   whatsappNumber: "256782380577", // WhatsApp line (international format, no leading 0)
   whatsappDisplay: "0782 380 577",
